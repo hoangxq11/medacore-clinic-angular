@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { MedicineCriteria } from 'src/app/commons/request/Medicine.req';
+import { MedicineCriteria } from 'src/app/commons/request/medicines.req';
 import { PatientCriteria } from 'src/app/commons/request/patient.req';
 import { StaffCriteria } from 'src/app/commons/request/staff.req';
 import { MedicineService } from 'src/app/services/medicine.service';

@@ -3,7 +3,7 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { MedicineDto } from 'src/app/commons/dto/medicine';
-import { MedicineReq } from 'src/app/commons/request/Medicine.req';
+import { MedicineReq } from 'src/app/commons/request/medicines.req';
 import { MedicineService } from 'src/app/services/medicine.service';
 
 @Component({

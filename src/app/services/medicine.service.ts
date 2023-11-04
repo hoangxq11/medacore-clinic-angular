@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { ROOT_API } from '../commons/constants/api';
 import { MedicineListRes, MedicineRes } from '../commons/dto/medicine';
 import { BaseResponse } from '../commons/dto/response';
-import { MedicineCriteria, MedicineReq } from '../commons/request/Medicine.req';
+import { MedicineCriteria, MedicineReq } from '../commons/request/medicines.req';
 
 @Injectable({
     providedIn: 'root'

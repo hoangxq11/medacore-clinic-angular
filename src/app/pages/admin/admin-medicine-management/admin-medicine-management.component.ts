@@ -6,7 +6,7 @@ import { MedicineDto } from 'src/app/commons/dto/medicine';
 import { MedicineService } from 'src/app/services/medicine.service';
 import { ModalCreateMedicineComponent } from '../modal/medicine/modal-create-medicine/modal-create-medicine.component';
 import { ModalUpdateMedicineComponent } from '../modal/medicine/modal-update-medicine/modal-update-medicine.component';
-import { MedicineCriteria } from 'src/app/commons/request/Medicine.req';
+import { MedicineCriteria } from 'src/app/commons/request/medicines.req';
 
 interface ColumnItem {
   name: string;

@@ -7,7 +7,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { MedicalRecordDto } from 'src/app/commons/dto/medical-record';
 import { MedicineDto } from 'src/app/commons/dto/medicine';
 import { MedicineOfPrescriptionDto } from 'src/app/commons/dto/prescription';
-import { MedicineCriteria } from 'src/app/commons/request/Medicine.req';
+import { MedicineCriteria } from 'src/app/commons/request/medicines.req';
 import { MedicineOdPrescriptionReq, PrescriptionReq } from 'src/app/commons/request/prescription.req';
 import { MedicalRecordService } from 'src/app/services/medical-record.service';
 import { MedicineService } from 'src/app/services/medicine.service';

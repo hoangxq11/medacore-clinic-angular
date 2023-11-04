@@ -17,6 +17,8 @@ export class LoginComponent implements OnInit {
   accountLogin: AccountLogin = new AccountLogin();
   jwtData: JwtData = new JwtData();
 
+  isSpinning: boolean = false;
+
   constructor(
     private fb: UntypedFormBuilder,
     private accountService: AccountService,
@@ -54,8 +56,10 @@ export class LoginComponent implements OnInit {
         'Thông báo',
         'Đăng nhập thành công'
       );
+      this.isSpinning = false;
       // setTimeout(() => location.reload(), 800);
     }, error => {
+      this.isSpinning = false;
       this.notification.create(
         'error',
         'Lỗi đăng nhập',
@@ -66,12 +70,8 @@ export class LoginComponent implements OnInit {
 
   submitForm(): void {
     if (this.validateForm.valid) {
+      this.isSpinning = true;
       console.log('submit', this.validateForm.value);
-      // if (this.validateForm.value.userName == "staff")
-      //   this.router.navigate(['staff'])
-      // else if (this.validateForm.value.userName == "admin")
-      //   this.router.navigate(['admin'])
-      // else this.router.navigate(['patient'])
       this.accountLogin = {
         username: this.validateForm.value.userName,
         password: this.validateForm.value.password

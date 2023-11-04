@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "hms-angular": {
+    "medacore-clinic-angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/hms-angular",
+            "outputPath": "dist/medacore-clinic-angular",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -86,10 +86,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "hms-angular:build:production"
+              "browserTarget": "medacore-clinic-angular:build:production"
             },
             "development": {
-              "browserTarget": "hms-angular:build:development"
+              "browserTarget": "medacore-clinic-angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -97,7 +97,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "hms-angular:build"
+            "browserTarget": "medacore-clinic-angular:build"
           }
         },
         "test": {

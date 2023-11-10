@@ -61,8 +61,17 @@
             <th>Khoa thực hiện</th>
         </tr>
         <tr>
+            <td>0</td>
+            <td>Khám chữa bệnh</td>
+            <td>200.000 đ</td>
+            <td>1</td>
+            <td>200.000 đ</td>
+            <td>None
+            </td>
+            <td>Khoa chuẩn đoán bệnh</td>
+        </tr>
         <tr *ngFor="let data of listServiceOfMedicalTestDto let i= index">
-            <td>{{i}}</td>
+            <td>{{i+1}}</td>
             <td>{{ data.serviceDto.name }}</td>
             <td>{{ data.serviceDto.price.toLocaleString().replaceAll(",",
                 ".")}} đ</td>

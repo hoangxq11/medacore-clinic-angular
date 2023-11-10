@@ -75,10 +75,20 @@
                                 <td>{{ data.patientDto.phoneNumber }}</td>
                                 <td>{{ data.staffDto.fullName }}</td>
                                 <td>{{ data.time | date: 'dd/MM/yyyy - HH:mm'}}</td>
-                                <td>{{ data.status == 'PENDING' ? 'Đang khám' : data.status == 'ARRIVED' ?
-                                    'Đã đến' : data.status == 'DONE' ? 'Đã khám' : 'None'}}</td>
-                                <td>{{ data.paymentStatus == 'PAID' ? 'Đã thanh toán' : data.paymentStatus == 'UNPAID' ?
-                                    'Chưa thanh toán' : 'None'}}</td>
+
+                                <td [style.color]="data.status == 'PENDING' ? 'orange' : data.status == 'ARRIVED' ?
+                                'blue' : data.status == 'DONE' ? 'green' : 'None'">
+                                
+                                    <b>{{ data.status == 'PENDING' ? 'Đang khám' : data.status == 'ARRIVED' ?
+                                        'Đã đến' : data.status == 'DONE' ? 'Đã khám' : 'None'}}</b>
+                                </td>
+
+                                <td [style.color]="data.paymentStatus == 'PAID' ? 'green' : data.paymentStatus == 'UNPAID' ?
+                                'orange' : 'None'">
+                                    
+                                    <b>{{ data.paymentStatus == 'PAID' ? 'Đã thanh toán' : data.paymentStatus == 'UNPAID' ?
+                                        'Chưa thanh toán' : 'None'}}</b>
+                                </td>
                             </tr>
                         </tbody>
                     </nz-table>

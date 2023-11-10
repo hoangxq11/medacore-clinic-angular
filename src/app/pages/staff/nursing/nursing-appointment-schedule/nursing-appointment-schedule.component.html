@@ -75,10 +75,18 @@
                                 <td>{{ data.staffDto.fullName }}</td>
                                 <td>{{ data.time | date : 'dd/MM/yyyy' }}</td>
                                 <td>{{ data.timeFrame }}</td>
-                                <td>{{ data.status == 'PENDING' ? 'Đang xử lý' :
-                                    data.status == 'DONE' ? 'Đã đến khám' :
-                                    data.status == 'CANCELED' ? 'Đã hủy' :
-                                    data.status == 'APPROVE' ? 'Đã duyệt' :'Không rõ'}}</td>
+
+                                <td [style.color]="data.status == 'PENDING' ? '#cc8418' :
+                                data.status == 'DONE' ? 'green' :
+                                data.status == 'CANCELED' ? 'red' :
+                                data.status == 'APPROVE' ? 'blue' :'Không rõ'">
+
+                                    <b>{{ data.status == 'PENDING' ? 'Đang xử lý' :
+                                        data.status == 'DONE' ? 'Đã đến khám' :
+                                        data.status == 'CANCELED' ? 'Đã hủy' :
+                                        data.status == 'APPROVE' ? 'Đã duyệt' :'Không rõ'}}</b>
+                                </td>
+
                                 <td [nzRight]="false">
                                     <a *ngIf="data.status != 'DONE'" (click)="editSchedule(data.id)"
                                         routerLink="/nursing/appointment-schedule"><span nz-icon nzType="edit"

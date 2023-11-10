@@ -122,7 +122,7 @@ export class NursingPaymentProcessingComponent implements OnInit {
       // nzTitle: 'Hóa đơn',
       nzContent: PrintPaymentModalComponent,
       nzStyle: { top: '10px' },
-      nzWidth: 750,
+      nzWidth: 850,
     });
 
     (<PrintPaymentModalComponent>modal.componentInstance).medicalRecordDto = this.medicalRecordDto;

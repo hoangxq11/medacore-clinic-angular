@@ -74,8 +74,13 @@
                                 <td>{{ data.patientDto.dateOfBirth | date: 'dd/MM/yyyy' }}</td>
                                 <td>{{ data.staffDto.fullName }}</td>
                                 <td>{{ data.time | date: 'dd/MM/yyyy - HH:mm'}}</td>
-                                <td>{{ data.status == 'PENDING' ? 'Đang khám' : data.status == 'ARRIVED' ?
-                                    'Đã đến' : data.status == 'DONE' ? 'Đã khám' : 'None'}}</td>
+
+                                <td [style.color]="data.status == 'PENDING' ? 'orange' : data.status == 'ARRIVED' ?
+                                'blue' : data.status == 'DONE' ? 'green' : 'None'">
+                                
+                                    <b>{{ data.status == 'PENDING' ? 'Đang khám' : data.status == 'ARRIVED' ?
+                                        'Đã đến' : data.status == 'DONE' ? 'Đã khám' : 'None'}}</b>
+                                </td>
                             </tr>
                         </tbody>
                     </nz-table>

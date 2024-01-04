@@ -6,6 +6,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { AccountLogin, JwtData } from 'src/app/commons/dto/account';
 import { ModalCreatePatientComponent } from 'src/app/pages/admin/modal/patient/modal-create-patient/modal-create-patient.component';
 import { AccountService } from 'src/app/services/account.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: UntypedFormBuilder,
     private accountService: AccountService,
+    private authService: AuthService,
     private notification: NzNotificationService,
     private modalService: NzModalService,
     private router: Router
@@ -41,6 +43,8 @@ export class LoginComponent implements OnInit {
       sessionStorage.setItem('jwtToken', this.jwtData.token);
       sessionStorage.setItem('username', this.jwtData.username);
       sessionStorage.setItem('role', this.jwtData.role);
+
+      this.authService.saveToken(this.jwtData.token);
 
       if ("ROLE_ADMIN" === this.jwtData.role) {
         this.router.navigate(['/admin']);

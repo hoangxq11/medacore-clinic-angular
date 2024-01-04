@@ -6,32 +6,35 @@ import { ExpertiseListRes, ExpertiseRes } from '../commons/dto/position-expertis
 import { BaseResponse } from '../commons/dto/response';
 import { PatientReq } from '../commons/request/patient.req';
 import { ExpertiseReq } from '../commons/request/position-expertise.req';
+import { AuthService } from './auth.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ExpertiseService {
     private baseURL = ROOT_API + "/expertise";
-    constructor(private httpClient: HttpClient) { }
+    constructor(private httpClient: HttpClient, private authService: AuthService) { }
+
+    private headers = this.authService.addTokenToHeader();
 
     getAllExpertise(): Observable<ExpertiseListRes> {
-        return this.httpClient.get<ExpertiseListRes>(`${this.baseURL}`);
+        return this.httpClient.get<ExpertiseListRes>(`${this.baseURL}`, { headers: this.headers });
     }
 
     getExpertiseById(ExpertiseId: number): Observable<ExpertiseRes> {
-        return this.httpClient.get<ExpertiseRes>(`${this.baseURL}/${ExpertiseId}`);
+        return this.httpClient.get<ExpertiseRes>(`${this.baseURL}/${ExpertiseId}`, { headers: this.headers });
     }
 
     createExpertise(ExpertiseReq: ExpertiseReq): Observable<BaseResponse> {
-        return this.httpClient.post<BaseResponse>(`${this.baseURL}`, ExpertiseReq);
+        return this.httpClient.post<BaseResponse>(`${this.baseURL}`, ExpertiseReq, { headers: this.headers });
     }
 
     updateExpertise(ExpertiseId: number, ExpertiseReq: ExpertiseReq): Observable<BaseResponse> {
-        return this.httpClient.put<BaseResponse>(`${this.baseURL}/${ExpertiseId}`, ExpertiseReq);
+        return this.httpClient.put<BaseResponse>(`${this.baseURL}/${ExpertiseId}`, ExpertiseReq, { headers: this.headers });
     }
 
     removeExpertise(ExpertiseId: number, patientReq: PatientReq): Observable<BaseResponse> {
-        return this.httpClient.delete<BaseResponse>(`${this.baseURL}/${ExpertiseId}`);
+        return this.httpClient.delete<BaseResponse>(`${this.baseURL}/${ExpertiseId}`, { headers: this.headers });
     }
 }
 

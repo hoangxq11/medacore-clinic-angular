@@ -66,6 +66,9 @@ import { NursingUpdateScheduleStatusComponent } from './pages/staff/nursing/moda
 import { NursingPaymentInvoicePrintingComponent } from './pages/staff/nursing/nursing-payment-invoice-printing/nursing-payment-invoice-printing.component';
 import { PrintPaymentModalComponent } from './pages/staff/nursing/modal/print-payment-modal/print-payment-modal.component';
 import { NursingPaymentProcessingComponent } from './pages/staff/nursing/nursing-payment-processing/nursing-payment-processing.component';
+import { PrintMedicalRecordInfoComponent } from './pages/staff/doctor/modal/print-medical-record-info/print-medical-record-info.component';
+import { PrintMedicalTestComponent } from './pages/staff/doctor/modal/print-medical-test/print-medical-test.component';
+import { PrintMedicineComponent } from './pages/staff/doctor/modal/print-medicine/print-medicine.component';
 
 registerLocaleData(vi);
 
@@ -126,6 +129,9 @@ registerLocaleData(vi);
     NursingPaymentProcessingComponent,
     NursingPaymentInvoicePrintingComponent,
     PrintPaymentModalComponent,
+    PrintMedicalRecordInfoComponent,
+    PrintMedicalTestComponent,
+    PrintMedicineComponent,
   ],
   imports: [
     BrowserModule,

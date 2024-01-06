@@ -3,12 +3,14 @@ import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms
 import { Router } from '@angular/router';
 import html2canvas from 'html2canvas';
 import jspdf from 'jspdf';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { MedicalRecordDto } from 'src/app/commons/dto/medical-record';
 import { MedicineDto } from 'src/app/commons/dto/medicine';
 import { MedicineOfPrescriptionDto } from 'src/app/commons/dto/prescription';
 import { MedicineCriteria } from 'src/app/commons/request/medicines.req';
 import { MedicineOdPrescriptionReq, PrescriptionReq } from 'src/app/commons/request/prescription.req';
+import { PrintMedicineComponent } from 'src/app/pages/staff/doctor/modal/print-medicine/print-medicine.component';
 import { MedicalRecordService } from 'src/app/services/medical-record.service';
 import { MedicineService } from 'src/app/services/medicine.service';
 import { PrescriptionService } from 'src/app/services/prescription.service';
@@ -48,6 +50,7 @@ export class PatientPrescriptionComponent  implements OnInit {
     private router: Router,
     private notification: NzNotificationService,
     private fb: UntypedFormBuilder,
+    private modalService: NzModalService,
     private prescriptionService: PrescriptionService,
     private medicineService: MedicineService
   ) { }
@@ -85,18 +88,42 @@ export class PatientPrescriptionComponent  implements OnInit {
     })
   }
 
+  // onPrint(): void {
+  //   let data = document.getElementById('pdfContent');
+  //   if (data != null) {
+  //     let unwantedElement = data.querySelector('#no-print');
+  //     if (unwantedElement != null) {
+  //       unwantedElement.classList.add('pdf-hidden'); // Thêm class mới
+  //     }
+  //     window.print();
+  //     if (unwantedElement != null) {
+  //       unwantedElement.classList.remove('pdf-hidden'); // Xóa class mới
+  //     }
+  //   }
+  // }
+
   onPrint(): void {
-    let data = document.getElementById('pdfContent');
-    if (data != null) {
-      let unwantedElement = data.querySelector('#no-print');
-      if (unwantedElement != null) {
-        unwantedElement.classList.add('pdf-hidden'); // Thêm class mới
-      }
-      window.print();
-      if (unwantedElement != null) {
-        unwantedElement.classList.remove('pdf-hidden'); // Xóa class mới
-      }
-    }
+    const modal = this.modalService.create({
+      // nzTitle: 'Hóa đơn',
+      nzContent: PrintMedicineComponent,
+      nzStyle: { top: '10px' },
+      nzWidth: 850,
+    });
+
+    (<PrintMedicineComponent>modal.componentInstance).medicalRecordDto = this.medicalRecordDto;
+    (<PrintMedicineComponent>modal.componentInstance).listMedicines = this.listMedicinesData;
+    
+    // let data = document.getElementById('pdfContent');
+    // if (data != null) {
+    //   let unwantedElement = data.querySelector('#no-print');
+    //   if (unwantedElement != null) {
+    //     unwantedElement.classList.add('pdf-hidden'); // Thêm class mới
+    //   }
+    //   window.print();
+    //   if (unwantedElement != null) {
+    //     unwantedElement.classList.remove('pdf-hidden'); // Xóa class mới
+    //   }
+    // }
   }
 
   onGeneratePdf(): void {

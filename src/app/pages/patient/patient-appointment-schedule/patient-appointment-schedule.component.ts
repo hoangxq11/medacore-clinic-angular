@@ -66,7 +66,7 @@ export class PatientAppointmentScheduleComponent implements OnInit {
   }
 
   getListAppointmentSchedule(): void {
-    this.appointmentScheduleService.getScheduleOfPatient(this.appointmentScheduleCriteria).subscribe(data => {
+    this.appointmentScheduleService.getScheduleOfPatient(this.patientUsername, this.appointmentScheduleCriteria).subscribe(data => {
       this.listAppointmentScheduleDto = data.data;
       this.listOfDisplayData = this.listAppointmentScheduleDto;
       this.loading = false;

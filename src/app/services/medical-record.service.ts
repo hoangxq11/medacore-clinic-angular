@@ -22,8 +22,8 @@ export class MedicalRecordService {
         return this.httpClient.post<MedicalRecordListRes>(`${this.baseURL}`, medicalRecordCriteria, { headers: this.headers });
     }
 
-    getAllMedicalRecordsOfDoctor(doctorUsername: string): Observable<MedicalRecordListRes> {
-        return this.httpClient.get<MedicalRecordListRes>(`${this.baseURL}/doctor/${doctorUsername}`, { headers: this.headers });
+    getAllMedicalRecordsOfDoctor(doctorUsername: string, medicalRecordCriteria: MedicalRecordCriteria): Observable<MedicalRecordListRes> {
+        return this.httpClient.post<MedicalRecordListRes>(`${this.baseURL}/doctor/${doctorUsername}`, medicalRecordCriteria, { headers: this.headers });
     }
 
     getAllMedicalRecordsOfPatient(patientUsername: string): Observable<MedicalRecordListRes> {

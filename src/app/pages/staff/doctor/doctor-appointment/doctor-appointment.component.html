@@ -35,6 +35,12 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
+                    <div class="float-right">
+                        <nz-range-picker [(ngModel)]="dateRange" [nzFormat]="'dd/MM/yyyy'"></nz-range-picker>
+                        <button class="ml-2" nz-button nzType="primary" (click)="onSearch()">Tìm kiếm</button>
+                    </div>
+                    <br />
+                    <br />
                     <nz-table nzShowSizeChanger nzBordered="true" #filterTable [nzData]="listOfDisplayData"
                         [nzFrontPagination]="true" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
                         [nzPageIndex]="pageIndex">

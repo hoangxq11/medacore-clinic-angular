@@ -33,8 +33,11 @@ export class AppointmentScheduleService {
         return this.httpClient.get<AppointmentScheduleListRes>(`${this.baseURL}/get-schedule-of-doctor/${doctorId}`, { headers: this.headers });
     }
 
-    getScheduleOfPatient(appointmentScheduleCriteria: AppointmentScheduleCriteria): Observable<AppointmentScheduleListRes> {
-        return this.httpClient.post<AppointmentScheduleListRes>(`${this.baseURL}/get-schedule-of-patient`, appointmentScheduleCriteria, { headers: this.headers });
+    getScheduleOfPatient(patientUsername: string, appointmentScheduleCriteria: AppointmentScheduleCriteria): Observable<AppointmentScheduleListRes> {
+        return this.httpClient.post<AppointmentScheduleListRes>(
+            `${this.baseURL}/get-schedule-of-patient/${patientUsername}`,
+            appointmentScheduleCriteria,
+            { headers: this.headers });
     }
 
     createSchedule(appointmentScheduleReq: AppointmentScheduleReq): Observable<BaseResponse> {

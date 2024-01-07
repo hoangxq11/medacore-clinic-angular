@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzTableFilterFn, NzTableFilterList, NzTableSortFn, NzTableSortOrder } from 'ng-zorro-antd/table';
-import { MedicalRecordDto } from 'src/app/commons/dto/medical-record';
+import { MedicalRecordCriteria, MedicalRecordDto } from 'src/app/commons/dto/medical-record';
 import { MedicalRecordService } from 'src/app/services/medical-record.service';
 
 interface ColumnItem {
@@ -33,6 +33,13 @@ export class DoctorAppointmentComponent implements OnInit {
   searchPatientPhoneNumberValue = '';
   visiblePatientName = false;
   visiblePatientPhoneNumber = false;
+
+  medicalRecordCriteria: MedicalRecordCriteria = {
+    startDate: new Date(),
+    endDate: new Date()
+  };
+
+  dateRange: Date[] = [new Date(), new Date()];
 
   listOfColumns: ColumnItem[] = [
     {
@@ -94,7 +101,7 @@ export class DoctorAppointmentComponent implements OnInit {
   }
 
   getListMedicalRecords(): void {
-    this.medicalRecordService.getAllMedicalRecordsOfDoctor(this.doctorUsername).subscribe(data => {
+    this.medicalRecordService.getAllMedicalRecordsOfDoctor(this.doctorUsername, this.medicalRecordCriteria).subscribe(data => {
       this.listMedicalRecordDto = data.data;
       this.listOfDisplayData = this.listMedicalRecordDto;
       this.loading = false;
@@ -175,5 +182,11 @@ export class DoctorAppointmentComponent implements OnInit {
         'Có lỗi xảy ra vui lòng thử lại sau'
       );
     })
+  }
+
+  onSearch() {
+    this.medicalRecordCriteria.startDate = this.dateRange[0];
+    this.medicalRecordCriteria.endDate = this.dateRange[1];
+    this.getListMedicalRecords();
   }
 }

@@ -1,3 +1,4 @@
+import { AppointmentScheduleCriteria } from './../../../../commons/dto/appointment-schedule';
 import { Component, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -32,6 +33,13 @@ export class NursingAppointmentScheduleComponent implements OnInit {
   visiblePatientName = false;
   visiblePatientPhoneNumber = false;
 
+  appointmentScheduleCriteria: AppointmentScheduleCriteria = {
+    startDate: new Date(),
+    endDate: new Date()
+  };
+
+  dateRange: Date[] = [new Date(), new Date()];
+
   listOfColumns: ColumnItem[] = [
     {
       name: "Bác sĩ",
@@ -61,8 +69,13 @@ export class NursingAppointmentScheduleComponent implements OnInit {
       sortOrder: null,
       sortFn: (a: AppointmentScheduleDto, b: AppointmentScheduleDto) => a.status
         .localeCompare(b.status),
-      listOfFilter: [],
-      filterFn: null
+        listOfFilter: [
+          { text: 'Đang xử lý', value: 'PENDING' },
+          { text: 'Đã đến khám', value: 'DONE' },
+          { text: 'Đã hủy', value: 'CANCELED' },
+          { text: 'Đã duyệt', value: 'APPROVE' },
+        ],
+        filterFn: (statusList: string[], item: AppointmentScheduleDto) => statusList.some(status => item.status.indexOf(status) !== -1)
     },
   ]
 
@@ -72,11 +85,26 @@ export class NursingAppointmentScheduleComponent implements OnInit {
     private notification: NzNotificationService) { }
 
   ngOnInit(): void {
-    this.getListAppointmentSchedule();
+    // this.getListAppointmentSchedule();
+    this.findListAppointmentSchedule();
   }
 
   getListAppointmentSchedule(): void {
     this.appointmentScheduleService.getAllSchedules().subscribe(data => {
+      this.listAppointmentScheduleDto = data.data;
+      this.listOfDisplayData = this.listAppointmentScheduleDto;
+      this.loading = false;
+    }, error => {
+      this.notification.create(
+        'error',
+        'Lỗi máy chủ',
+        'Có lỗi xảy ra vui lòng thử lại sau'
+      );
+    })
+  }
+
+  findListAppointmentSchedule(): void {
+    this.appointmentScheduleService.getSchedules(this.appointmentScheduleCriteria).subscribe(data => {
       this.listAppointmentScheduleDto = data.data;
       this.listOfDisplayData = this.listAppointmentScheduleDto;
       this.loading = false;
@@ -130,6 +158,12 @@ export class NursingAppointmentScheduleComponent implements OnInit {
 
   removeSchedule(): void {
 
+  }
+
+  onSearch() {
+    this.appointmentScheduleCriteria.startDate = this.dateRange[0];
+    this.appointmentScheduleCriteria.endDate = this.dateRange[1];
+    this.findListAppointmentSchedule();
   }
 
 }

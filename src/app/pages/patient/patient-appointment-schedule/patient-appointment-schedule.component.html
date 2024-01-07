@@ -36,6 +36,10 @@
                 <!-- /.card-header -->
                 <div class="card-body">
                     <button nz-button nzType="primary" [routerLink]="['/patient/create-schedule']">Đăng ký khám</button>
+                    <div class="float-right">
+                        <nz-range-picker [(ngModel)]="dateRange"  [nzFormat]="'dd/MM/yyyy'"></nz-range-picker>
+                        <button class="ml-2" nz-button nzType="primary" (click)="onSearch()">Tìm kiếm</button>
+                    </div>
                     <br />
                     <br />
                     <nz-table nzShowSizeChanger nzBordered="true" #filterTable [nzData]="listOfDisplayData"
@@ -62,7 +66,12 @@
                                 <th>Chuyên môn</th>
                                 <th>Ngày khám</th>
                                 <th>Khung giờ</th>
-                                <th>Trạng thái</th>
+                                <th 
+                                    [(nzSortOrder)]="statusColumn.sortOrder" [nzSortFn]="statusColumn.sortFn"
+                                    [nzFilters]="statusColumn.listOfFilter" [nzFilterFn]="statusColumn.filterFn"
+                                    [nzShowFilter]="statusColumn.listOfFilter.length > 0">
+                                    {{ statusColumn.name }}
+                                </th>
                                 <th>Thao tác</th>
                             </tr>
                         </thead>
@@ -75,10 +84,16 @@
                                 <td>{{ data.staffDto.expertise.name }}</td>
                                 <td>{{ data.time | date : 'dd/MM/yyyy' }}</td>
                                 <td>{{ data.timeFrame }}</td>
-                                <td>{{ data.status == 'PENDING' ? 'Đang xử lý' :
-                                    data.status == 'DONE' ? 'Đã đến khám' :
-                                    data.status == 'CANCELED' ? 'Đã hủy' :
-                                    data.status == 'APPROVE' ? 'Đã duyệt' :'Không rõ'}}</td>
+                                <td [style.color]="data.status == 'PENDING' ? '#cc8418' :
+                                data.status == 'DONE' ? 'green' :
+                                data.status == 'CANCELED' ? 'red' :
+                                data.status == 'APPROVE' ? 'blue' :'Không rõ'">
+
+                                    <b>{{ data.status == 'PENDING' ? 'Đang xử lý' :
+                                        data.status == 'DONE' ? 'Đã đến khám' :
+                                        data.status == 'CANCELED' ? 'Đã hủy' :
+                                        data.status == 'APPROVE' ? 'Đã duyệt' :'Không rõ'}}</b>
+                                </td>
                                 <td [nzRight]="false">
                                     <a (click)="data.status == 'PENDING' ? removeSchedule(data.id) : ''"
                                         routerLink="/nursing/appointment-schedule"><span nz-icon nzType="delete"

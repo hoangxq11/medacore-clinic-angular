@@ -2,8 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { NzTableSortOrder, NzTableSortFn, NzTableFilterList, NzTableFilterFn } from 'ng-zorro-antd/table';
+import { AppointmentScheduleDto } from 'src/app/commons/dto/appointment-schedule';
 import { MedicalRecordDto } from 'src/app/commons/dto/medical-record';
 import { MedicalRecordService } from 'src/app/services/medical-record.service';
+
+interface ColumnItem {
+  name: string;
+  sortOrder: NzTableSortOrder | null;
+  sortFn: NzTableSortFn<MedicalRecordDto> | null;
+  listOfFilter: NzTableFilterList;
+  filterFn: NzTableFilterFn<MedicalRecordDto> | null;
+}
 
 @Component({
   selector: 'app-patient-medical-record',
@@ -24,6 +34,19 @@ export class PatientMedicalRecordComponent implements OnInit {
   searchDoctorPhoneNumberValue = '';
   visibleDoctorName = false;
   visibleDoctorPhoneNumber = false;
+
+  statusColumn: ColumnItem =
+  {
+    name: "Trạng thái",
+    sortOrder: null,
+    sortFn: null,
+    listOfFilter: [
+      { text: 'Đang khám', value: 'PENDING' },
+      { text: 'Đã đến', value: 'ARRIVED' },
+      { text: 'Đã khám', value: 'DONE' },
+    ],
+    filterFn: (statusList: string[], item: MedicalRecordDto) => statusList.some(status => item.status.indexOf(status) !== -1)
+  }
 
   constructor(
     private medicalRecordService: MedicalRecordService,

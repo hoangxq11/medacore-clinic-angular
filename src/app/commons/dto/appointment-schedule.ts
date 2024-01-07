@@ -20,3 +20,9 @@ export class AppointmentScheduleRes implements BaseResponse {
     message!: string;
     data!: AppointmentScheduleDto;
 }
+
+export class AppointmentScheduleCriteria {
+    startDate?: Date;
+    endDate?: Date;
+    patientUsername?: string;
+}

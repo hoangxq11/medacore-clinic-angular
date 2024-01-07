@@ -43,7 +43,7 @@ export class DoctorAppointmentComponent implements OnInit {
         { text: 'Nam', value: 'male' },
         { text: 'Nữ', value: 'female' }
       ],
-      filterFn: (gender: string, item: MedicalRecordDto) => item.patientDto.gender == gender
+      filterFn: (genderList: string[], item: MedicalRecordDto) => genderList.some(gender => item.patientDto.gender.indexOf(gender) !== -1)
     },
     {
       name: "Ngày sinh",
@@ -73,8 +73,12 @@ export class DoctorAppointmentComponent implements OnInit {
       sortOrder: null,
       sortFn: (a: MedicalRecordDto, b: MedicalRecordDto) => a.status
         .localeCompare(b.status),
-      listOfFilter: [],
-      filterFn: null
+        listOfFilter: [
+          { text: 'Đang khám', value: 'PENDING' },
+          { text: 'Đã đến', value: 'ARRIVED' },
+          { text: 'Đã khám', value: 'DONE' },
+        ],
+        filterFn: (statusList: string[], item: MedicalRecordDto) => statusList.some(status => item.status.indexOf(status) !== -1)
     },
   ]
 

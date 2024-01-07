@@ -1,9 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { AppointmentScheduleDto } from 'src/app/commons/dto/appointment-schedule';
+import { NzTableSortOrder, NzTableSortFn, NzTableFilterList, NzTableFilterFn } from 'ng-zorro-antd/table';
+import { AppointmentScheduleCriteria, AppointmentScheduleDto } from 'src/app/commons/dto/appointment-schedule';
 import { AppointmentScheduleReq } from 'src/app/commons/request/appointment-schedule.req';
 import { AppointmentScheduleService } from 'src/app/services/appoiment-schedule.service';
+
+interface ColumnItem {
+  name: string;
+  sortOrder: NzTableSortOrder | null;
+  sortFn: NzTableSortFn<AppointmentScheduleDto> | null;
+  listOfFilter: NzTableFilterList;
+  filterFn: NzTableFilterFn<AppointmentScheduleDto> | null;
+}
 
 @Component({
   selector: 'app-patient-appointment-schedule',
@@ -25,6 +34,28 @@ export class PatientAppointmentScheduleComponent implements OnInit {
   visibleDoctorName = false;
   visibleDoctorPhoneNumber = false;
 
+  appointmentScheduleCriteria: AppointmentScheduleCriteria = {
+    startDate: undefined,
+    endDate: undefined,
+    patientUsername: this.patientUsername
+  };
+
+  dateRange: Date[] = [new Date(), new Date()];
+
+  statusColumn: ColumnItem =
+    {
+      name: "Trạng thái",
+      sortOrder: null,
+      sortFn: null,
+      listOfFilter: [
+        { text: 'Đang xử lý', value: 'PENDING' },
+        { text: 'Đã đến khám', value: 'DONE' },
+        { text: 'Đã hủy', value: 'CANCELED' },
+        { text: 'Đã duyệt', value: 'APPROVE' },
+      ],
+      filterFn: (statusList: string[], item: AppointmentScheduleDto) => statusList.some(status => item.status.indexOf(status) !== -1)
+    }
+
   constructor(
     private appointmentScheduleService: AppointmentScheduleService,
     private modalService: NzModalService,
@@ -35,7 +66,7 @@ export class PatientAppointmentScheduleComponent implements OnInit {
   }
 
   getListAppointmentSchedule(): void {
-    this.appointmentScheduleService.getScheduleOfPatient(this.patientUsername).subscribe(data => {
+    this.appointmentScheduleService.getScheduleOfPatient(this.appointmentScheduleCriteria).subscribe(data => {
       this.listAppointmentScheduleDto = data.data;
       this.listOfDisplayData = this.listAppointmentScheduleDto;
       this.loading = false;
@@ -92,5 +123,11 @@ export class PatientAppointmentScheduleComponent implements OnInit {
         })
       }
     });
+  }
+
+  onSearch() {
+    this.appointmentScheduleCriteria.startDate = this.dateRange[0];
+    this.appointmentScheduleCriteria.endDate = this.dateRange[1];
+    this.getListAppointmentSchedule();
   }
 }

@@ -38,3 +38,10 @@ export class MedicalRecordInfoRes implements BaseResponse {
     message!: string;
     data!: MedicalRecordInfoDto;
 }
+
+export class MedicalRecordCriteria {
+    startDate?: Date;
+    endDate?: Date;
+    patientName?: string;
+    patientPhone?: string;
+}

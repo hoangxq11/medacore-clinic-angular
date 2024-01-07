@@ -1,3 +1,4 @@
+import { MedicalRecordCriteria } from './../commons/dto/medical-record';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -17,8 +18,8 @@ export class MedicalRecordService {
     private headers = this.authService.addTokenToHeader();
 
 
-    getAllMedicalRecords(): Observable<MedicalRecordListRes> {
-        return this.httpClient.get<MedicalRecordListRes>(`${this.baseURL}`, { headers: this.headers });
+    getAllMedicalRecords(medicalRecordCriteria: MedicalRecordCriteria): Observable<MedicalRecordListRes> {
+        return this.httpClient.post<MedicalRecordListRes>(`${this.baseURL}`, medicalRecordCriteria, { headers: this.headers });
     }
 
     getAllMedicalRecordsOfDoctor(doctorUsername: string): Observable<MedicalRecordListRes> {

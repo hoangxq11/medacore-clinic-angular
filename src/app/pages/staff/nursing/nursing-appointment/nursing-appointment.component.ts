@@ -5,6 +5,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzTableFilterFn, NzTableFilterList, NzTableSortFn, NzTableSortOrder } from 'ng-zorro-antd/table';
 import { MedicalRecordDto } from 'src/app/commons/dto/medical-record';
 import { MedicalRecordService } from 'src/app/services/medical-record.service';
+import { MedicalRecordCriteria } from './../../../../commons/dto/medical-record';
 
 interface ColumnItem {
   name: string;
@@ -32,6 +33,13 @@ export class NursingAppointmentComponent implements OnInit {
   visiblePatientName = false;
   visiblePatientPhoneNumber = false;
 
+  medicalRecordCriteria: MedicalRecordCriteria = {
+    startDate: new Date(),
+    endDate: new Date()
+  };
+
+  dateRange: Date[] = [new Date(), new Date()];
+
   listOfColumns: ColumnItem[] = [
     {
       name: "Bác sĩ",
@@ -53,16 +61,23 @@ export class NursingAppointmentComponent implements OnInit {
       sortOrder: null,
       sortFn: (a: MedicalRecordDto, b: MedicalRecordDto) => a.status
         .localeCompare(b.status),
-      listOfFilter: [],
-      filterFn: null
+      listOfFilter: [
+        { text: 'Đang khám', value: 'PENDING' },
+        { text: 'Đã đến', value: 'ARRIVED' },
+        { text: 'Đã khám', value: 'DONE' },
+      ],
+      filterFn: (statusList: string[], item: MedicalRecordDto) => statusList.some(status => item.status.indexOf(status) !== -1)
     },
     {
       name: "Trạng thái thanh toán",
       sortOrder: null,
       sortFn: (a: MedicalRecordDto, b: MedicalRecordDto) => a.paymentStatus
         .localeCompare(b.paymentStatus),
-      listOfFilter: [],
-      filterFn: null
+      listOfFilter: [
+        { text: 'Đã thanh toán', value: 'PAID' },
+        { text: 'Chưa thanh toán', value: 'UNPAID' },
+      ],
+      filterFn: (statusList: string[], item: MedicalRecordDto) => statusList.some(status => item.status.indexOf(status) !== -1)
     },
   ]
 
@@ -78,7 +93,7 @@ export class NursingAppointmentComponent implements OnInit {
   }
 
   getListMedicalRecords(): void {
-    this.medicalRecordService.getAllMedicalRecords().subscribe(data => {
+    this.medicalRecordService.getAllMedicalRecords(this.medicalRecordCriteria).subscribe(data => {
       this.listMedicalRecordDto = data.data;
       this.listOfDisplayData = this.listMedicalRecordDto;
       this.loading = false;
@@ -144,4 +159,9 @@ export class NursingAppointmentComponent implements OnInit {
     })
   }
 
+  onSearch() {
+    this.medicalRecordCriteria.startDate = this.dateRange[0];
+    this.medicalRecordCriteria.endDate = this.dateRange[1];
+    this.getListMedicalRecords();
+  }
 }

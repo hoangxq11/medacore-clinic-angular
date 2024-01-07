@@ -1,3 +1,4 @@
+import { AppointmentScheduleCriteria } from './../commons/dto/appointment-schedule';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -20,6 +21,10 @@ export class AppointmentScheduleService {
         return this.httpClient.get<AppointmentScheduleListRes>(`${this.baseURL}`, { headers: this.headers });
     }
 
+    getSchedules(appointmentScheduleCriteria: AppointmentScheduleCriteria): Observable<AppointmentScheduleListRes> {
+        return this.httpClient.post<AppointmentScheduleListRes>(`${this.baseURL}/find`, appointmentScheduleCriteria, { headers: this.headers });
+    }
+
     getScheduleById(scheduleId: number): Observable<AppointmentScheduleRes> {
         return this.httpClient.get<AppointmentScheduleRes>(`${this.baseURL}/get-schedule/${scheduleId}`, { headers: this.headers });
     }
@@ -28,8 +33,8 @@ export class AppointmentScheduleService {
         return this.httpClient.get<AppointmentScheduleListRes>(`${this.baseURL}/get-schedule-of-doctor/${doctorId}`, { headers: this.headers });
     }
 
-    getScheduleOfPatient(patientUsername: string): Observable<AppointmentScheduleListRes> {
-        return this.httpClient.get<AppointmentScheduleListRes>(`${this.baseURL}/get-schedule-of-patient/${patientUsername}`, { headers: this.headers });
+    getScheduleOfPatient(appointmentScheduleCriteria: AppointmentScheduleCriteria): Observable<AppointmentScheduleListRes> {
+        return this.httpClient.post<AppointmentScheduleListRes>(`${this.baseURL}/get-schedule-of-patient`, appointmentScheduleCriteria, { headers: this.headers });
     }
 
     createSchedule(appointmentScheduleReq: AppointmentScheduleReq): Observable<BaseResponse> {

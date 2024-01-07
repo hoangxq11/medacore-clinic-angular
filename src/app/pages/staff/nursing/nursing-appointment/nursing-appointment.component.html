@@ -37,6 +37,10 @@
                 <div class="card-body">
                     <button nz-button nzType="primary" [routerLink]="['/nursing/create-medical-record']">Thêm
                         mới</button>
+                    <div class="float-right">
+                        <nz-range-picker [(ngModel)]="dateRange" [nzFormat]="'dd/MM/yyyy'"></nz-range-picker>
+                        <button class="ml-2" nz-button nzType="primary" (click)="onSearch()">Tìm kiếm</button>
+                    </div>
                     <br />
                     <br />
                     <nz-table nzShowSizeChanger nzBordered="true" #filterTable [nzData]="listOfDisplayData"
@@ -78,15 +82,16 @@
 
                                 <td [style.color]="data.status == 'PENDING' ? 'orange' : data.status == 'ARRIVED' ?
                                 'blue' : data.status == 'DONE' ? 'green' : 'None'">
-                                
+
                                     <b>{{ data.status == 'PENDING' ? 'Đang khám' : data.status == 'ARRIVED' ?
                                         'Đã đến' : data.status == 'DONE' ? 'Đã khám' : 'None'}}</b>
                                 </td>
 
                                 <td [style.color]="data.paymentStatus == 'PAID' ? 'green' : data.paymentStatus == 'UNPAID' ?
                                 'orange' : 'None'">
-                                    
-                                    <b>{{ data.paymentStatus == 'PAID' ? 'Đã thanh toán' : data.paymentStatus == 'UNPAID' ?
+
+                                    <b>{{ data.paymentStatus == 'PAID' ? 'Đã thanh toán' : data.paymentStatus ==
+                                        'UNPAID' ?
                                         'Chưa thanh toán' : 'None'}}</b>
                                 </td>
                             </tr>

@@ -59,7 +59,12 @@
                                 <th>Chức vụ</th>
                                 <th>Chuyên môn</th>
                                 <th>Ngày khám</th>
-                                <th>Trạng thái</th>
+                                <th 
+                                    [(nzSortOrder)]="statusColumn.sortOrder" [nzSortFn]="statusColumn.sortFn"
+                                    [nzFilters]="statusColumn.listOfFilter" [nzFilterFn]="statusColumn.filterFn"
+                                    [nzShowFilter]="statusColumn.listOfFilter.length > 0">
+                                    {{ statusColumn.name }}
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -72,8 +77,12 @@
                                 <td>{{ data.staffDto.position.name }}</td>
                                 <td>{{ data.staffDto.expertise.name }}</td>
                                 <td>{{ data.time | date: 'dd/MM/yyyy - HH:mm'}}</td>
-                                <td>{{ data.status == 'PENDING' ? 'Đang khám' : data.status == 'ARRIVED' ?
-                                    'Đã đến' : data.status == 'DONE' ? 'Đã khám' : 'None'}}</td>
+                                <td [style.color]="data.status == 'PENDING' ? 'orange' : data.status == 'ARRIVED' ?
+                                'blue' : data.status == 'DONE' ? 'green' : 'None'">
+                                
+                                    <b>{{ data.status == 'PENDING' ? 'Đang khám' : data.status == 'ARRIVED' ?
+                                        'Đã đến' : data.status == 'DONE' ? 'Đã khám' : 'None'}}</b>
+                                </td>
                             </tr>
                         </tbody>
                     </nz-table>

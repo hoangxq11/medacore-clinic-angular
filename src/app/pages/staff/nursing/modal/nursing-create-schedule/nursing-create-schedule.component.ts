@@ -258,5 +258,13 @@ export class NursingCreateScheduleComponent implements OnInit {
     }
   }
 
-  public disabledDate = (current: Date): boolean => current < new Date();
+  public disabledDate = (current: Date): boolean => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); 
+    
+    const currentDate = new Date(current);
+    currentDate.setHours(0, 0, 0, 0); 
+  
+    return currentDate.getTime() < today.getTime();
+  };
 }

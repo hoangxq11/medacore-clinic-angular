@@ -153,7 +153,7 @@ export class NursingAppointmentScheduleComponent implements OnInit {
         scheduleId
       }
     });
-    modal.afterClose.subscribe(() => this.getListAppointmentSchedule())
+    modal.afterClose.subscribe(() => this.findListAppointmentSchedule())
   }
 
   removeSchedule(): void {

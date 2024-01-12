@@ -11,6 +11,8 @@ import { MedicalRecordService } from 'src/app/services/medical-record.service';
 import { PrintMedicalRecordInfoComponent } from '../modal/print-medical-record-info/print-medical-record-info.component';
 import { MedicalRecordInfoDto } from './../../../../commons/dto/medical-record';
 import { MedicalRecordInfoReq } from './../../../../commons/request/medical-record.req';
+import { MedicalExamTemplateService } from 'src/app/services/medical-exam-template.service';
+import { MedicalExamTemplateDto } from 'src/app/commons/dto/medical-exam-template';
 
 @Component({
   selector: 'app-create-medical-examination',
@@ -30,16 +32,21 @@ export class CreateMedicalExaminationComponent implements OnInit {
   medicalRecordDto: MedicalRecordDto = new MedicalRecordDto()
 
   bmiValue!: number;
+  
+  listTemplate: MedicalExamTemplateDto[] = [];
+  description: string = "<p><b><i>Chi tiết phiếu khám!</i></b></p>";
 
   constructor(
     private medicalRecordService: MedicalRecordService,
     private router: Router,
     private modalService: NzModalService,
+    private templateService: MedicalExamTemplateService,
     private notification: NzNotificationService,
     private fb: UntypedFormBuilder
   ) { }
 
   ngOnInit(): void {
+    this.getListTemplate();
     const url = this.router.url.split('/');
     this.medicalRecordId = Number(url[url.length - 1]);
     this.validateForm = this.fb.group({
@@ -51,9 +58,22 @@ export class CreateMedicalExaminationComponent implements OnInit {
       detailMedical: ["<p><b><i>Khám bệnh chi tiết!</i></b></p>", [Validators.required]],
       diagnose: [null, [Validators.required]],
       solution: [null, [Validators.required]],
+      templateId: [null],
     });
     this.getMedicalRecordById();
     this.getMedicalRecordInfo();
+  }
+
+  getListTemplate(): void {
+    this.templateService.getTemplatesCommon().subscribe(data => {
+      this.listTemplate = data.data;
+    }, error => {
+      this.notification.create(
+        'error',
+        'Lỗi máy chủ',
+        'Có lỗi xảy ra vui lòng thử lại sau'
+      );
+    })
   }
 
   getMedicalRecordInfo(): void {
@@ -68,7 +88,9 @@ export class CreateMedicalExaminationComponent implements OnInit {
         detailMedical: [this.medicalRecordInfoDto.detailMedical, [Validators.required]],
         diagnose: [this.medicalRecordInfoDto.diagnose, [Validators.required]],
         solution: [this.medicalRecordInfoDto.solution, [Validators.required]],
+        templateId: [null],
       });
+      this.description = this.medicalRecordInfoDto.detailMedical;
       this.calculateBMI();
     }, error => {
       console.log(error)
@@ -109,7 +131,7 @@ export class CreateMedicalExaminationComponent implements OnInit {
         bodyTemperature: this.validateForm.value.bodyTemperature,
         heartbeat: this.validateForm.value.heartbeat,
         bloodPressure: this.validateForm.value.bloodPressure,
-        detailMedical: this.validateForm.value.detailMedical,
+        detailMedical: this.description,
         diagnose: this.validateForm.value.diagnose,
         solution: this.validateForm.value.solution,
         medicalRecordId: this.medicalRecordId,
@@ -199,5 +221,10 @@ export class CreateMedicalExaminationComponent implements OnInit {
         unwantedElement.classList.remove('pdf-hidden'); // Xóa class mới
       }
     }
+  }
+
+  onChangeTemplate(templateId: number): void {
+    let indexExist = this.listTemplate.findIndex(e => e.id == templateId);
+    this.description = this.listTemplate[indexExist].description;
   }
 }

@@ -31,6 +31,8 @@ import { AuthGuard } from './services/guard/auth.guard';
 import { DoctorGuard } from './services/guard/doctor.guard';
 import { NursingGuard } from './services/guard/nursing.guard';
 import { PatientGuard } from './services/guard/patient.guard';
+import { AdminMedicalExamTemplateComponent } from './pages/admin/admin-medical-exam-template/admin-medical-exam-template.component';
+import { DoctorMedicalExamTemplateComponent } from './pages/staff/doctor/doctor-medical-exam-template/doctor-medical-exam-template.component';
 
 const patientRoutes: Routes = [
   { path: 'patient', pathMatch: 'full', redirectTo: '/patient/medical-record' },
@@ -48,6 +50,7 @@ const doctorRoutes: Routes = [
   { path: 'doctor/medical-examination/:id', component: CreateMedicalExaminationComponent, canActivate: [AuthGuard, DoctorGuard] },
   { path: 'doctor/specify-cls/:id', component: DoctorSpecifyClsComponent, canActivate: [AuthGuard, DoctorGuard] },
   { path: 'doctor/prescription/:id', component: DoctorCreatePrescriptionComponent, canActivate: [AuthGuard, DoctorGuard] },
+  { path: 'doctor/medical-exam-templates', component: DoctorMedicalExamTemplateComponent, canActivate: [AuthGuard, DoctorGuard] },
 ]
 
 const nursingRoutes: Routes = [
@@ -69,6 +72,7 @@ const adminRoutes: Routes = [
   { path: 'admin/staff', component: AdminStaffManagementComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'admin/position-and-expertise', component: PositionAndExpertiseComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'admin/accounts', component: AdminAccountsComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'admin/medical-exam-templates', component: AdminMedicalExamTemplateComponent, canActivate: [AuthGuard, AdminGuard] },
 ]
 
 const routes: Routes = [

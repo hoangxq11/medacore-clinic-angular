@@ -18,7 +18,7 @@ export class PositionService {
     private headers = this.authService.addTokenToHeader();
 
     getAllPosition(): Observable<PositionListRes> {
-        return this.httpClient.get<PositionListRes>(`${this.baseURL}`);
+        return this.httpClient.get<PositionListRes>(`${this.baseURL}`, { headers: this.headers });
     }
 
     getPositionById(positionId: number): Observable<PositionRes> {

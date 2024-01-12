@@ -173,10 +173,20 @@
                                 </nz-form-item>
                             </div>
                         </div>
+                        <div nz-col nzSm="12">
+                            <nz-form-item>
+                                <nz-form-label>Tạo theo mẫu có sẵn</nz-form-label>
+                                <nz-form-control nzErrorTip="Nhập đầy đủ thông tin!">
+                                    <nz-select nzPlaceHolder="Lựa chọn" (ngModelChange)="onChangeTemplate($event)" formControlName="templateId">
+                                        <nz-option *ngFor="let item of listTemplate" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
                         <div nz-row>
                             <nz-form-item>
                                 <nz-form-label nzRequired>Khám bệnh chi tiết</nz-form-label>
-                                <ckeditor nz-input formControlName="detailMedical" [editor]="Editor"></ckeditor>
+                                <ckeditor nz-input formControlName="detailMedical" [(ngModel)]="description" [editor]="Editor"></ckeditor>
                             </nz-form-item>
                         </div>
                         <div nz-row nzGutter="16">

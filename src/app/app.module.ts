@@ -15,11 +15,14 @@ import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { ModalCreateMedicalExamTemplateComponent } from './components/modal/modal-create-medical-exam-template/modal-create-medical-exam-template.component';
+import { ModalUpdateMedicalExamTemplateComponent } from './components/modal/modal-update-medical-exam-template/modal-update-medical-exam-template.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AdminAccountsComponent } from './pages/admin/admin-accounts/admin-accounts.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { AdminMedicalDepartmentComponent } from './pages/admin/admin-medical-department/admin-medical-department.component';
+import { AdminMedicalExamTemplateComponent } from './pages/admin/admin-medical-exam-template/admin-medical-exam-template.component';
 import { AdminMedicineManagementComponent } from './pages/admin/admin-medicine-management/admin-medicine-management.component';
 import { AdminPatientManagementComponent } from './pages/admin/admin-patient-management/admin-patient-management.component';
 import { AdminServiceManagementComponent } from './pages/admin/admin-service-management/admin-service-management.component';
@@ -56,19 +59,20 @@ import { DoctorCreatePrescriptionComponent } from './pages/staff/doctor/doctor-c
 import { DoctorHeaderControlComponent } from './pages/staff/doctor/doctor-header-control/doctor-header-control.component';
 import { DoctorSidebarComponent } from './pages/staff/doctor/doctor-sidebar/doctor-sidebar.component';
 import { DoctorSpecifyClsComponent } from './pages/staff/doctor/doctor-specify-cls/doctor-specify-cls.component';
-import { CreateMedicalRecordComponent } from './pages/staff/nursing/create-medical-record/create-medical-record.component';
-import { NursingCreatePatientComponent } from './pages/staff/nursing/modal/nursing-create-patient/nursing-create-patient.component';
-import { NursingCreateScheduleComponent } from './pages/staff/nursing/modal/nursing-create-schedule/nursing-create-schedule.component';
-import { NursingAppointmentScheduleComponent } from './pages/staff/nursing/nursing-appointment-schedule/nursing-appointment-schedule.component';
-import { NursingAppointmentComponent } from './pages/staff/nursing/nursing-appointment/nursing-appointment.component';
-import { NursingSidebarComponent } from './pages/staff/nursing/nursing-sidebar/nursing-sidebar.component';
-import { NursingUpdateScheduleStatusComponent } from './pages/staff/nursing/modal/nursing-update-schedule-status/nursing-update-schedule-status.component';
-import { NursingPaymentInvoicePrintingComponent } from './pages/staff/nursing/nursing-payment-invoice-printing/nursing-payment-invoice-printing.component';
-import { PrintPaymentModalComponent } from './pages/staff/nursing/modal/print-payment-modal/print-payment-modal.component';
-import { NursingPaymentProcessingComponent } from './pages/staff/nursing/nursing-payment-processing/nursing-payment-processing.component';
 import { PrintMedicalRecordInfoComponent } from './pages/staff/doctor/modal/print-medical-record-info/print-medical-record-info.component';
 import { PrintMedicalTestComponent } from './pages/staff/doctor/modal/print-medical-test/print-medical-test.component';
 import { PrintMedicineComponent } from './pages/staff/doctor/modal/print-medicine/print-medicine.component';
+import { CreateMedicalRecordComponent } from './pages/staff/nursing/create-medical-record/create-medical-record.component';
+import { NursingCreatePatientComponent } from './pages/staff/nursing/modal/nursing-create-patient/nursing-create-patient.component';
+import { NursingCreateScheduleComponent } from './pages/staff/nursing/modal/nursing-create-schedule/nursing-create-schedule.component';
+import { NursingUpdateScheduleStatusComponent } from './pages/staff/nursing/modal/nursing-update-schedule-status/nursing-update-schedule-status.component';
+import { PrintPaymentModalComponent } from './pages/staff/nursing/modal/print-payment-modal/print-payment-modal.component';
+import { NursingAppointmentScheduleComponent } from './pages/staff/nursing/nursing-appointment-schedule/nursing-appointment-schedule.component';
+import { NursingAppointmentComponent } from './pages/staff/nursing/nursing-appointment/nursing-appointment.component';
+import { NursingPaymentInvoicePrintingComponent } from './pages/staff/nursing/nursing-payment-invoice-printing/nursing-payment-invoice-printing.component';
+import { NursingPaymentProcessingComponent } from './pages/staff/nursing/nursing-payment-processing/nursing-payment-processing.component';
+import { NursingSidebarComponent } from './pages/staff/nursing/nursing-sidebar/nursing-sidebar.component';
+import { DoctorMedicalExamTemplateComponent } from './pages/staff/doctor/doctor-medical-exam-template/doctor-medical-exam-template.component';
 
 registerLocaleData(vi);
 
@@ -132,6 +136,10 @@ registerLocaleData(vi);
     PrintMedicalRecordInfoComponent,
     PrintMedicalTestComponent,
     PrintMedicineComponent,
+    AdminMedicalExamTemplateComponent,
+    ModalCreateMedicalExamTemplateComponent,
+    ModalUpdateMedicalExamTemplateComponent,
+    DoctorMedicalExamTemplateComponent,
   ],
   imports: [
     BrowserModule,
